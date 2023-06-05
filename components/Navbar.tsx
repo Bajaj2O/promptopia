@@ -1,14 +1,16 @@
 'use client'
 import Link from 'next/link'
 import Image from 'next/image'
-import logo from '@/public/assets/images/logo.svg'
-import { useState, useEffect, use } from 'react'
+import { useState, useEffect } from 'react'
 import { signIn, signOut, useSession, getProviders } from 'next-auth/react'
 
-const Navbar = () => {
 
-  const [userLogin, setUserLogin] = useState<boolean>(true)
+const Navbar = () => {
+  const logo = '/assets/images/logo.svg'
+
+  const { data: session } = useSession()
   const [providers, setProviders] = useState<any>(null)
+  const [toggleDropdown, setToggleDropdown] = useState<boolean>(true)
   useEffect(() => {
     const initProviders = async () => {
       const providers = await getProviders()
@@ -17,10 +19,9 @@ const Navbar = () => {
     initProviders()
 
   }, [])
-
-
-
-
+  // {
+  //   alert(session)
+  // }
 
   return (
 
@@ -31,8 +32,9 @@ const Navbar = () => {
       </Link>
 
       {/* desktop view*/}
+      
 
-      {userLogin ?
+      {session?.user ?
         (<div className='sm:flex hidden  gap-10'>
           <Link href='/create-post' className='outline_btn'>
             <p className='btn-txt'>create</p>
@@ -43,32 +45,89 @@ const Navbar = () => {
           </button>
 
           <Link href='/profile' className='gap-2 flex justify-between items-center profile'>
-            <Image src={logo} alt='Profile-photo' width={50} height={50} />
+            <Image
+              src={session?.user?.image as string}
+              alt='Profile-photo'
+              width={37}
+              height={37}
+
+            />
           </Link>
 
         </div>)
         : (
           <>
+            <div className='sm:flex hidden  gap-10'>
             {providers && Object.values(providers).map((provider: any) => (
               <div key={provider.name}>
                 <button onClick={() => signIn(provider.id)} className='black_btn'>
-                  Sign in with {provider.name}
+                  Sign in 
                 </button>
               </div>
             ))}
-
+            </div>
           </>
-
-
         )}
 
 
       {/* mobile view */}
 
-      <div className='sm:hidden flex gap-10'>
-        <Image src={logo} alt='profile-photo' width={50} height={50} />
 
-      </div>
+      {session?.user ?
+        (<div className='sm:hidden flex gap-10 relative '>
+          <Image src={session?.user?.image as string}
+            alt='profile-photo'
+            width={37}
+            height={37}
+            onClick={() => setToggleDropdown((prev) => !prev)}
+
+          />
+
+          {toggleDropdown &&
+            <div className='dropdown'>
+              <Link
+                href='/profile'
+                className='dropdown_link'
+                onClick={() => {
+                  setToggleDropdown(false)
+                }}
+              >
+                my profile
+              </Link>
+
+              <Link href='/create-post' className='dropdown_link'>
+                create prompt
+              </Link>
+
+              <button className=' mt-5 w-full black_btn' onClick={() => {
+                setToggleDropdown(false)
+                signOut()
+              }}>
+               logout
+              </button>
+
+            </div>
+
+          }
+        </div>
+
+        )
+        : (
+          <>
+          <div className='sm:hidden flex gap-10 relative '>
+            {providers && Object.values(providers).map((provider: any) => (
+              <div key={provider.name}>
+                <button onClick={() => signIn(provider.id)} className='black_btn'>
+                  Sign in 
+                </button>
+              </div>
+            ))}
+            </div>
+
+          </>
+        )
+      }
+
 
 
 

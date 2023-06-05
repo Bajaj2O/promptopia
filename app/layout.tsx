@@ -1,6 +1,7 @@
 import '@/styles/globals.css'
 import { Inter } from 'next/font/google'
 import Navbar from '@/components/Navbar'
+import Provider from '@/components/Provider'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -17,6 +18,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
+        <Provider session={null}>
         <div className='main'>
           <div className='gradient' />
         </div>
@@ -25,7 +27,7 @@ export default function RootLayout({
           <Navbar/>
           {children}
         </main>
-
+        </Provider>
       </body>
     </html>
   )
