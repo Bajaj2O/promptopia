@@ -19,14 +19,14 @@ export default function RootLayout({
     <html lang="en">
       <body>
         <Provider session={null}>
-        <div className='main'>
-          <div className='gradient' />
-        </div>
+          <div className='main'>
+            <div className='gradient' />
+          </div>
 
-        <main className='app'>
-          <Navbar/>
-          {children}
-        </main>
+          <main className='app'>
+            <Navbar />
+            {children}
+          </main>
         </Provider>
       </body>
     </html>

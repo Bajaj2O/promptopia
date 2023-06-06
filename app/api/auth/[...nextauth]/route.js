@@ -20,7 +20,6 @@ const NextAUTH = NextAuth({
         },
         async signIn({ profile }) {
 
-
             try {
                 // 
                 const user = await User.findOne({ email: profile.email });
@@ -31,10 +30,10 @@ const NextAUTH = NextAuth({
                 }
                 //if user not exist create new user
                 await User.create({
-                    username: profile.name.toLowerCase(),
                     email: profile.email,
-                    image: profile.picture,
-                });
+                    username: profile.name.replace(/\s/g, "").toLowerCase(),
+                    image: profile.picture
+                })
 
                 return true;
 
