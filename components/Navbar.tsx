@@ -10,18 +10,16 @@ const Navbar = () => {
 
   const { data: session } = useSession()
   const [providers, setProviders] = useState<any>(null)
-  const [toggleDropdown, setToggleDropdown] = useState<boolean>(true)
+  const [toggleDropdown, setToggleDropdown] = useState<boolean>(false)
   useEffect(() => {
-    const initProviders = async () => {
-      const providers = await getProviders()
-      setProviders(providers)
-    }
-    initProviders()
+    (async () => {
+      const res = await getProviders();
+      setProviders(res);
+      {console.log(res)}
+    })();
 
   }, [])
-  // {
-  //   alert(session)
-  // }
+  
 
   return (
 
@@ -32,15 +30,15 @@ const Navbar = () => {
       </Link>
 
       {/* desktop view*/}
-      
+
 
       {session?.user ?
         (<div className='sm:flex hidden  gap-10'>
-          <Link href='/create-post' className='outline_btn'>
+          <Link href='/create-prompt' className='outline_btn'>
             <p className='btn-txt'>create</p>
           </Link>
 
-          <button className='outline_btn' onClick={() => { }}>
+          <button className='outline_btn' onClick={() => {signOut() }}>
             <p className='btn-txt'>logout</p>
           </button>
 
@@ -58,13 +56,13 @@ const Navbar = () => {
         : (
           <>
             <div className='sm:flex hidden  gap-10'>
-            {providers && Object.values(providers).map((provider: any) => (
-              <div key={provider.name}>
-                <button onClick={() => signIn(provider.id)} className='black_btn'>
-                  Sign in 
-                </button>
-              </div>
-            ))}
+              {providers && Object.values(providers).map((provider: any) => (
+                <div key={provider.name}>
+                  <button onClick={() => signIn(provider.id)} className='black_btn'>
+                    Sign in
+                  </button>
+                </div>
+              ))}
             </div>
           </>
         )}
@@ -95,17 +93,13 @@ const Navbar = () => {
                 my profile
               </Link>
 
-              <Link href='/create-post' className='dropdown_link'>
+              <Link href='/create-prompt' className='dropdown_link'>
                 create prompt
               </Link>
 
-              <button className=' mt-5 w-full black_btn' onClick={() => {
-                setToggleDropdown(false)
-                signOut()
-              }}>
-               logout
-              </button>
-
+              <button className='mt-5 w-full outline_btn' onClick={() => {signOut() }}>
+            <p className='btn-txt'>logout</p>
+          </button>
             </div>
 
           }
@@ -114,14 +108,14 @@ const Navbar = () => {
         )
         : (
           <>
-          <div className='sm:hidden flex gap-10 relative '>
-            {providers && Object.values(providers).map((provider: any) => (
-              <div key={provider.name}>
-                <button onClick={() => signIn(provider.id)} className='black_btn'>
-                  Sign in 
-                </button>
-              </div>
-            ))}
+            <div className='sm:hidden flex '>
+              {providers && Object.values(providers).map((provider: any) => (
+                <div key={provider.name}>
+                  <button onClick={() => signIn(provider.id)} className='black_btn'>
+                    Sign in
+                  </button>
+                </div>
+              ))}
             </div>
 
           </>

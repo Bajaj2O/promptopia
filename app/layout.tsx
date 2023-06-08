@@ -1,9 +1,8 @@
 import '@/styles/globals.css'
-import { Inter } from 'next/font/google'
-import Navbar from '@/components/Navbar'
-import Provider from '@/components/Provider'
+// import { Inter } from 'next/font/google'
+import Main from '@/components/Main'
 
-const inter = Inter({ subsets: ['latin'] })
+// const inter = Inter({ subsets: ['latin'] })
 
 export const metadata = {
   title: 'Promptopia',
@@ -12,22 +11,13 @@ export const metadata = {
 
 export default function RootLayout({
   children,
-}: {
+}:{
   children: React.ReactNode
 }) {
   return (
     <html lang="en">
       <body>
-        <Provider session={null}>
-          <div className='main'>
-            <div className='gradient' />
-          </div>
-
-          <main className='app'>
-            <Navbar />
-            {children}
-          </main>
-        </Provider>
+        <Main children={children}/>
       </body>
     </html>
   )

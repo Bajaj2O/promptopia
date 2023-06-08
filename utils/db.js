@@ -4,7 +4,10 @@ let isConnect = false;
 const connectDB = async () => {
     mongoose.set('strictQuery', true);
 
-    if (isConnect) return;
+    if (isConnect) {
+        console.log("Already connected");
+        return;
+    }
 
     try {
         const conn = await mongoose.connect(process.env.MONGO_URI,{
