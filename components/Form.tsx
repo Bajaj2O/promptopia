@@ -1,22 +1,51 @@
-import React from 'react'
+import React, { SetStateAction } from 'react'
+import Link from 'next/link'
 
-const Form = () => {
+interface Post {
+  prompt: string,
+  tags: string
+}
+interface Props {
+  post: Post,
+  type: string,
+  setPost: SetStateAction<any>
+  submitting: boolean,
+  handleSubmit: (e: React.FormEvent<HTMLFormElement>) => void
+}
+
+const Form = ({ type, post, setPost, submitting, handleSubmit }: Props) => {
   return (
-    <section>
-      <h1 className='text-2xl font-bold '>Create a Prompt</h1>
+    <section className='flex flex-col justify-center items-center'>
+      <h1 className='text-5xl font-bold blue_gradient flex items-center justify-center'>{type} a Post</h1>
+      <p className='text-xl font-satoshi mt-2 text-slate-500'>Write a prompt and add tags to help others find it</p>
       <div id='form'>
-      <form  className='flex flex-col '>
-        
-        <label htmlFor="Prompt">Prompt</label>
-        <textarea name="Prompt" id="Prompt" cols={30} rows={10} placeholder='write yourn prompt here '/>
-        <label htmlFor="tags">Tags</label>
-        <input type="text" name="tags" id="tags" />
-        
-        <button type="submit">Submit</button>
-      </form>
+        <form className='flex flex-col gap-8 glassmorphism mt-10' onSubmit={handleSubmit}>
+
+          <label className='flex flex-col gap-2' >
+            <span className='font-bold font-satoshi flex flex-col text-gray-600'>Your Prompt</span>
+            <textarea name="Prompt" id="Prompt" cols={50} rows={10} placeholder='  write your prompt here ' value={post.prompt} onChange={(e) => { setPost({ ...post, prompt: e.target.value }) }} required  className='bg-stone-50 rounded-lg'/>
+          </label>
+          <label className=' gap-2' >
+            <span className='font-bold font-satoshi flex flex-col text-gray-600'>Add Your Tag
+            </span>
+            <input type="text" name="tags" id="tags" className='w-full bg-stone-50 rounded-lg mt-2' placeholder=' #promptopia' value={post.tags} onChange={(e) => { setPost({ ...post, tags: e.target.value }) }} />
+          </label>
+          <div className='flex justify-around '>
+
+            <button type="submit" disabled={submitting} className='outline_btn glassmorphism w-1/3'>
+              <div className='text-gray-500'> 
+                {submitting ? 'Creating' : 'Create'}
+              </div>
+            </button>
+            <Link href='/' className='outline_btn glassmorphism w-1/3' >
+             <div className='text-gray-500 '>Cancel</div>
+            </Link>
+          </div>
+        </form>
       </div>
     </section>
   )
+
 }
 
 export default Form
