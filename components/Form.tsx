@@ -8,7 +8,7 @@ interface Post {
 interface Props {
   post: Post,
   type: string,
-  setPost: SetStateAction<any>
+  setPost: SetStateAction<any>,
   submitting: boolean,
   handleSubmit: (e: React.FormEvent<HTMLFormElement>) => void
 }
@@ -34,7 +34,7 @@ const Form = ({ type, post, setPost, submitting, handleSubmit }: Props) => {
 
             <button type="submit" disabled={submitting} className='outline_btn glassmorphism w-1/3'>
               <div className='text-gray-500'> 
-                {submitting ? 'Creating' : 'Create'}
+                {submitting ? `${type}ing...` : type}
               </div>
             </button>
             <Link href='/' className='outline_btn glassmorphism w-1/3' >

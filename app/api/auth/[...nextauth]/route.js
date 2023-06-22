@@ -15,8 +15,16 @@ const NextAUTH = NextAuth({
 
         async session({ session }) {
             const currUser = await User.findOne({ email: session.user.email });
-            session.user.id = currUser._id.toString();
-            return session;
+            // session.user.id = currUser._id.toString();
+            // return session;
+
+            return { ...session,
+                user: { 
+                    ...session.user,
+                  id: currUser._id.toString()
+                 
+                }
+              }
         },
         async signIn({ profile }) {
 

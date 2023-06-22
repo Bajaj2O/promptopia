@@ -1,4 +1,5 @@
 import Image from 'next/image'
+import Feed from '@/components/Feed'
 
 export default function Home() {
   return (
@@ -14,6 +15,7 @@ export default function Home() {
         <br className='max-md:hidden'/>
         create and share your own prompts with the world.
       </p>
+      <Feed />
     </section>
   )
 }
