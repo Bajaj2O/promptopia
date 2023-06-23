@@ -1,19 +1,9 @@
 import React, { SetStateAction } from 'react'
 import Link from 'next/link'
+import {FormPost, FormProps} from '@/types/index'
 
-interface Post {
-  prompt: string,
-  tags: string
-}
-interface Props {
-  post: Post,
-  type: string,
-  setPost: SetStateAction<any>,
-  submitting: boolean,
-  handleSubmit: (e: React.FormEvent<HTMLFormElement>) => void
-}
 
-const Form = ({ type, post, setPost, submitting, handleSubmit }: Props) => {
+const Form = ({ type, post, setPost, submitting, handleSubmit }: FormProps) => {
   return (
     <section className='flex flex-col justify-center items-center'>
       <h1 className='text-5xl font-bold blue_gradient flex items-center justify-center'>{type} a Post</h1>

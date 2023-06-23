@@ -1,11 +1,13 @@
 import connectDB from '@/utils/db';
 import Prompt from '@/models/prompt';
 
-const handler = async (req) => {
+const handler = async (req,{params}) => {
+    
     try {
+    
         await connectDB();
-        const data = await Prompt.find({}).populate("creator");
-        
+        const data = await Prompt.find({creator:params.id}).populate("creator");
+        console.log(data);
         return new Response(JSON.stringify(data),{status:200}, { success: true })
     }
     catch (error) {

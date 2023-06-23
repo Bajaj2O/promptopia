@@ -1,10 +1,11 @@
 'use client'
 import {useState,useEffect} from 'react'
 import PromptCard from './PromptCard'
+import {Post,creator} from '@/types'
 
 const Feed = () => {
   const [searchText, setSearchText] = useState<string>('')
-  const [posts, setPosts] = useState<any>([])
+  const [posts, setPosts] = useState<Post[]>([])
 
   useEffect(() => {
     const fetchPost = async()=>{
@@ -22,27 +23,24 @@ const Feed = () => {
 
   return (
     <section >
-      <form className='w-full'>
-        <input type="text" placeholder='search' value={searchText} onChange={(e) => { setSearchText(e.target.value) }}  className='
-        '/>
+      <form className='w-full relative flex-center mt-3'>
+        <input type="text" placeholder='search' value={searchText} onChange={(e) => { setSearchText(e.target.value) }}  className='search_input peer'/>
       </form>
-      <div>
         <AllPost posts={posts} handleTagClick={handleTagClick}/>
-      </div>
 
     </section>
   )
 }
 
 const AllPost = ({posts,handleTagClick}:{
-  posts: any[],
+  posts: Post[],
   handleTagClick: (tag: string) => void,
 })=>{
   return(
-    <div className='flex gap-4'>
-      {posts.map((post:any)=>(
-        <div>
-          <PromptCard key= {post._id as string} post={post}  handleTagClick = {handleTagClick} />
+    <div className='mt-16 prompt_layout'>
+      {posts.map((post:Post)=>(
+        <div key= {post._id as string}>
+          <PromptCard  post={post}  handleTagClick = {handleTagClick} />
         </div>
       ))}
     </div>

@@ -78,6 +78,7 @@ const Navbar = () => {
             width={37}
             height={37}
             onClick={() => setToggleDropdown((prev) => !prev)}
+            className='cursor-pointer rounded-full'
 
           />
 
