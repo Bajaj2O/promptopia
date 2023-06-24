@@ -40,7 +40,7 @@ const AllPost = ({posts,handleTagClick}:{
     <div className='mt-16 prompt_layout'>
       {posts.map((post:Post)=>(
         <div key= {post._id as string}>
-          <PromptCard  post={post}  handleTagClick = {handleTagClick} />
+          <PromptCard  post={post}  handleTagClick = {handleTagClick} handleDelete={()=>{}} handleEdit={()=>{}} />
         </div>
       ))}
     </div>

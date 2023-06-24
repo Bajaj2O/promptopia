@@ -6,7 +6,7 @@ import {FormPost, FormProps} from '@/types/index'
 const Form = ({ type, post, setPost, submitting, handleSubmit }: FormProps) => {
   return (
     <section className='flex flex-col justify-center items-center'>
-      <h1 className='text-5xl font-bold blue_gradient flex items-center justify-center'>{type} a Post</h1>
+      <h1 className='text-5xl font-bold blue_gradient flex items-center justify-center'>{type}  Post</h1>
       <p className='text-xl font-satoshi mt-2 text-slate-500'>Write a prompt and add tags to help others find it</p>
       <div id='form'>
         <form className='flex flex-col gap-8 glassmorphism mt-10' onSubmit={handleSubmit}>

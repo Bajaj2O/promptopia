@@ -1,5 +1,5 @@
-import Prompt from "@/models/prompt";
-import  connectDB  from "@/utils/db";
+import connectDB from '@/utils/db';
+import Prompt from '@/models/prompt';
 
 export const GET = async (request, { params }) => {
     try {
@@ -16,23 +16,23 @@ export const GET = async (request, { params }) => {
 }
 
 export const PATCH = async (request, { params }) => {
-    const { prompt, tag } = await request.json();
+    const { prompt, tags } = await request.json();
 
     try {
         await connectDB();
 
-        // Find the existing prompt by ID
-        const existingPrompt = await Prompt.findById(params.id);
+      
+        const iPrompt = await Prompt.findById(params.id);
 
-        if (!existingPrompt) {
+        if (!iPrompt) {
             return new Response("Prompt not found", { status: 404 });
         }
 
         // Update the prompt with new data
-        existingPrompt.prompt = prompt;
-        existingPrompt.tag = tag;
+        iPrompt.prompt = prompt;
+        iPrompt.tags = tags;
 
-        await existingPrompt.save();
+        await iPrompt.save();
 
         return new Response("Successfully updated the Prompts", { status: 200 });
     } catch (error) {
@@ -43,9 +43,7 @@ export const PATCH = async (request, { params }) => {
 export const DELETE = async (request, { params }) => {
     try {
         await connectDB();
-
         await Prompt.findByIdAndRemove(params.id);
-
         return new Response("Prompt deleted successfully", { status: 200 });
     } catch (error) {
         return new Response("Error deleting prompt", { status: 500 });
