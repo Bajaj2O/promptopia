@@ -16,7 +16,7 @@ export const GET = async (request, { params }) => {
 }
 
 export const PATCH = async (request, { params }) => {
-    const { prompt, tags } = await request.json();
+    const { prompt, tag } = await request.json();
 
     try {
         await connectDB();
@@ -30,11 +30,12 @@ export const PATCH = async (request, { params }) => {
 
         // Update the prompt with new data
         iPrompt.prompt = prompt;
-        iPrompt.tags = tags;
+        iPrompt.tag = tag;
 
         await iPrompt.save();
 
         return new Response("Successfully updated the Prompts", { status: 200 });
+
     } catch (error) {
         return new Response("Error Updating Prompt", { status: 500 });
     }

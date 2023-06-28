@@ -8,6 +8,7 @@ import Profile from "@/components/Profile";
 const UserProfile = ({ params }: {
     params: {
         id: string;
+        name: string;
     };
 }) => {
     const searchParams = useSearchParams();

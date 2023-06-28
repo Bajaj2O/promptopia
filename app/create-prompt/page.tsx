@@ -12,7 +12,7 @@ const Page = () => {
     const [submitting, setSubmitting] = useState<boolean>(false);
     const [post, setPost] = useState({
         prompt: "",
-        tags: ""
+        tag: ""
     })
 
 
@@ -27,7 +27,7 @@ const Page = () => {
                 },
                 body: JSON.stringify({
                     prompt: post.prompt,
-                    tags: post.tags,
+                    tag: post.tag,
                     creator: session?.user?.id
                 })
             })

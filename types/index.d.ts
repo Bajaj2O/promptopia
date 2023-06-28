@@ -14,7 +14,7 @@ export interface Post {
 
 export interface FormPost {
     prompt: string,
-    tags: string
+    tag: string
   }
 export interface FormProps {
     post: FormPost,

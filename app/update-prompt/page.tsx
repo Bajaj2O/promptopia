@@ -3,25 +3,22 @@
 import { FormEvent, useEffect, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import Form from "@/components/Form";
-import {FormPost} from "@/types";
+import {FormPost,Post} from "@/types";
 
 const UpdatePrompt = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
   const promptId = searchParams.get("id");
 
-  const [post, setPost] = useState<FormPost>({ prompt: "", tags: "", });
+  const [post, setPost] = useState<FormPost>({ prompt: "", tag: "", });
   const [submitting, setIsSubmitting] = useState(false);
 
   useEffect(() => {
     const getPromptDetails = async () => {
       const response = await fetch(`/api/prompt/${promptId}`);
-      const data = await response.json();
+      const data:FormPost = await response.json();
 
-      setPost({
-        prompt: data.prompt,
-        tags: data.tags,
-      });
+      setPost(data);
     };
 
     if (promptId) getPromptDetails();
@@ -38,7 +35,7 @@ const UpdatePrompt = () => {
         method: "PATCH",
         body: JSON.stringify({
           prompt: post.prompt,
-          tag: post.tags,
+          tag: post.tag,
         }),
       });
 

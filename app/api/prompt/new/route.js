@@ -2,13 +2,13 @@ import connectDB from 'utils/db';
 import Prompt from 'models/prompt';
 
 const handler = async (req, res) => {
-    const { creator, prompt, tags } = await req.json();
+    const { creator, prompt, tag } = await req.json();
     try {
         await connectDB();
         const newPrompt = new Prompt({
             creator,
             prompt,
-            tag:tags
+            tag:tag
         })
         await newPrompt.save();
         return new Response(200, { success: true, message: "Prompt created successfully" })

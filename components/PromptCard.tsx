@@ -37,7 +37,7 @@ const PromptCard = ({ post, handleTagClick, handleDelete, handleEdit }: {
  
   return (
     <div className=' glassmorphism flex prompt_card'>
-      <div className="p-2">
+      <div className="p-1">
         <div className='flex gap-3 p-3'>
           <div className='flex flex-col gap-1 w-20 ' onClick={handleProfileClick}>
             <Image src={post.creator.image} alt="user Image" height={35} width={55} className=" border rounded-full " />
@@ -46,7 +46,7 @@ const PromptCard = ({ post, handleTagClick, handleDelete, handleEdit }: {
             <span className='font-bold font-satoshi text-gray-600 '>{post.creator.username}</span>
             <span className='font-bold font-satoshi text-gray-600 '>{post.creator.email}</span>
           </div>
-          <div className=" h-fit w-fit " onClick={handleCopy}>
+          <div className=" h-fit w-fit rounded-full " onClick={handleCopy}>
             <Image src={
               (copied === post.prompt) ?
                 'assets/icons/tick.svg' :
@@ -54,15 +54,17 @@ const PromptCard = ({ post, handleTagClick, handleDelete, handleEdit }: {
             }
               className=""
               alt="copy-icon"
-              width={50}
-              height={50}
+              width={37}
+              height={37}
             />
           </div>
         </div>
 
         <div className="text-slate-800 p-3">
           <p>{post.prompt}</p>
-          <p className="mt-2 blue_gradient cursor-pointer" onClick={() => { handleTagClick }}>{post.tag}</p>
+          <p className="mt-2 blue_gradient cursor-pointer" onClick={()=>{
+            handleTagClick(post.tag)
+          }}>{post.tag}</p>
         </div>
 
 
