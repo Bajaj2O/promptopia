@@ -8,7 +8,7 @@ import pullSessionId from '@/utils/session'
 const Page = () => {
     const { data: session } = useSession();
     const router = useRouter();
-    const sesssionId = pullSessionId()
+    const sessionId = pullSessionId()
 
     const [submitting, setSubmitting] = useState<boolean>(false);
     const [post, setPost] = useState({
@@ -29,7 +29,7 @@ const Page = () => {
                 body: JSON.stringify({
                     prompt: post.prompt,
                     tag: post.tag,
-                    creator: sesssionId
+                    creator: sessionId
                 })
             })
             if (response.ok) {
