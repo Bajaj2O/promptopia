@@ -3,11 +3,12 @@ import Form from '@/components/Form'
 import { FormEvent, useState } from 'react'
 import { useSession } from 'next-auth/react'
 import { useRouter } from 'next/navigation'
-
+import pullSessionId from '@/utils/session'
 
 const Page = () => {
     const { data: session } = useSession();
     const router = useRouter();
+    const sesssionId = pullSessionId()
 
     const [submitting, setSubmitting] = useState<boolean>(false);
     const [post, setPost] = useState({
@@ -28,7 +29,7 @@ const Page = () => {
                 body: JSON.stringify({
                     prompt: post.prompt,
                     tag: post.tag,
-                    creator: session?.user?.id
+                    creator: sesssionId
                 })
             })
             if (response.ok) {

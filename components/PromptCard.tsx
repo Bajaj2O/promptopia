@@ -5,6 +5,7 @@ import { useEffect, useState } from "react"
 import Image from "next/image"
 import { Post } from "@/types"
 import { usePathname } from "next/navigation"
+import pullSessionId from "@/utils/session"
 
 const PromptCard = ({ post, handleTagClick, handleDelete, handleEdit }: {
   post: any,
@@ -14,6 +15,7 @@ const PromptCard = ({ post, handleTagClick, handleDelete, handleEdit }: {
 
 
 }) => {
+  const sessionId = pullSessionId()
   const pathname = usePathname()
   const router = useRouter()
   const { data: session } = useSession()
@@ -30,7 +32,7 @@ const PromptCard = ({ post, handleTagClick, handleDelete, handleEdit }: {
   const handleProfileClick = () => {
     console.log(post);
 
-    if (post.creator._id === session?.user?.id) return router.push("/profile");
+    if (post.creator._id === sessionId) return router.push("/profile");
 
     router.push(`/profile/${post.creator._id}?name=${post.creator.username}`);
   };
@@ -69,7 +71,7 @@ const PromptCard = ({ post, handleTagClick, handleDelete, handleEdit }: {
 
 
         {
-         ( post.creator._id === session?.user?.id && pathname == '/profile') && (
+         ( post.creator._id === sessionId && pathname == '/profile') && (
             <div className="flex gap-2 px-3 justify-between">
               <button className="btn text-green-600 w-1/3" onClick={() => { handleEdit(post) }}>Edit</button>
               <button className="btn text-red-500 w-1/3" onClick={() => { handleDelete(post) }}>Delete</button>

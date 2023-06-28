@@ -5,18 +5,20 @@ import { useEffect, useState } from 'react'
 
 import { useRouter } from 'next/navigation'
 import {Post as PostType} from '@/types'
+import pullSessionId from '@/utils/session'
 
 const ProfilePage = () => {
     const router = useRouter()
+    const sessionId = pullSessionId()
     const { data: session } = useSession()
     const [posts, setPosts] = useState<PostType[]>([])
     useEffect(() => {   
         const fetchPost  = async () => {
-            const res = await fetch(`/api/users/${session?.user?.id}/posts`)
+            const res = await fetch(`/api/users/${sessionId}/posts`)
             const data:PostType[] = await res.json()
             setPosts(data);
         }
-        if(session?.user?.id)
+        if(sessionId)
         fetchPost()
     }, [])
 
