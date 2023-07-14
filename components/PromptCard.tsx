@@ -8,7 +8,7 @@ import { usePathname } from "next/navigation"
 import pullSessionId from "@/utils/session"
 
 const PromptCard = ({ post, handleTagClick, handleDelete, handleEdit }: {
-  post: any,
+  post: Post,
   handleTagClick: (tag: string) => void,
   handleDelete: (post:Post) => void,
   handleEdit: (post:Post) => void,
