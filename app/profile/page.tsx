@@ -12,12 +12,12 @@ const ProfilePage = () => {
     const sessionId = pullSessionId()
     const { data: session } = useSession()
     const [posts, setPosts] = useState<PostType[]>([])
-    useEffect(() => {   
-        const fetchPost  = async () => {
-            const res = await fetch(`/api/users/${sessionId}/posts`)
-            const data:PostType[] = await res.json()
-            setPosts(data);
-        }
+    const fetchPost  = async () => {
+      const res = await fetch(`/api/users/${sessionId}/posts`)
+      const data:PostType[] = await res.json()
+      setPosts(data);
+  }
+    useEffect(() => {    
         if(sessionId)
         fetchPost()
     }, [])
