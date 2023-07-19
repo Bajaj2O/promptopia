@@ -10,7 +10,7 @@ const Profile = ({ name, image, post, handleDelete, handleEdit }: {
   handleEdit: (post: Post) => void,
 }) => {
   return (
-    <div>
+    <section className='w-full'>
 
       {post.length === 0 ?
         <div className='flex justify-center items-center mt-16'>
@@ -43,7 +43,7 @@ const Profile = ({ name, image, post, handleDelete, handleEdit }: {
       </div>
 
 
-    </div>
+    </section>
   )
 }
 
